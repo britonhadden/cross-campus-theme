@@ -2,33 +2,30 @@
 /**
  * The Sidebar containing the main widget areas.
  *
- * @package _s
- * @since _s 1.0
+ * @package ydnxc
+ * @since ydnxc 1.0
  */
 ?>
 		<div id="secondary" class="widget-area" role="complementary">
 			<?php do_action( 'before_sidebar' ); ?>
-			<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
+      <div id="sidebar">
+         <aside id="search" class="widget widget_search">
+            <?php get_search_form(); ?>
+          </aside>
+         
+        <div class="tab-content">
+         <?php
+          if ( is_single() ) {
+            dynamic_sidebar('content-sidebar-tabs');
+          } else {
+            dynamic_sidebar('home-sidebar-tabs');
+          }
+          ?>
+        </div>
 
-				<aside id="search" class="widget widget_search">
-					<?php get_search_form(); ?>
-				</aside>
+        <?php
+          dynamic_sidebar('sidebar-advertisement');
+        ?>
 
-				<aside id="archives" class="widget">
-					<h1 class="widget-title"><?php _e( 'Archives', '_s' ); ?></h1>
-					<ul>
-						<?php wp_get_archives( array( 'type' => 'monthly' ) ); ?>
-					</ul>
-				</aside>
-
-				<aside id="meta" class="widget">
-					<h1 class="widget-title"><?php _e( 'Meta', '_s' ); ?></h1>
-					<ul>
-						<?php wp_register(); ?>
-						<li><?php wp_loginout(); ?></li>
-						<?php wp_meta(); ?>
-					</ul>
-				</aside>
-
-			<?php endif; // end sidebar widget area ?>
+      </div> <!-- #sidebar -->
 		</div><!-- #secondary .widget-area -->

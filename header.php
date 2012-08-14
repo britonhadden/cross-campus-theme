@@ -4,8 +4,8 @@
  *
  * Displays all of the <head> section and everything up till <div id="main">
  *
- * @package _s
- * @since _s 1.0
+ * @package ydnxc
+ * @since ydnxc 1.0
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -30,7 +30,7 @@
 
 	// Add a page number if necessary:
 	if ( $paged >= 2 || $page >= 2 )
-		echo ' | ' . sprintf( __( 'Page %s', '_s' ), max( $paged, $page ) );
+		echo ' | ' . sprintf( __( 'Page %s', 'ydnxc' ), max( $paged, $page ) );
 
 	?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
@@ -45,18 +45,15 @@
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site">
 	<?php do_action( 'before' ); ?>
-	<header id="masthead" class="site-header" role="banner">
-		<hgroup>
+  <nav id="top" class="top-bottom">
+    <div class="container clearfix">
+      <span class="pull-left"><a href="http://yaledailynews.com">yaledailynews.com</a></span>
+      <span class="pull-right"><a href="#">Login</a> | <a href="#">Logout</a></span>
+    </div>
+  </nav>
+	<header id="masthead" class="site-header container" role="banner"> 
 			<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
-		</hgroup>
-
-		<nav role="navigation" class="site-navigation main-navigation">
-			<h1 class="assistive-text"><?php _e( 'Menu', '_s' ); ?></h1>
-			<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', '_s' ); ?>"><?php _e( 'Skip to content', '_s' ); ?></a></div>
-
-			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
-		</nav>
 	</header><!-- #masthead .site-header -->
 
-	<div id="main">
+	<div id="main" class="container">
+    <div class="row">
