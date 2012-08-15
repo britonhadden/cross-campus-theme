@@ -63,12 +63,13 @@ function ydnxc_setup() {
 	 * Enable support for Post Thumbnails
 	 */
 	add_theme_support( 'post-thumbnails' );
+  add_image_size('home-entry-list',250,150,true);
+  add_image_size('featured-story-list',150,150,true);
+  add_image_size('entry-featured-image',660,999999); //max-width 630; height unconstrained
 
-	/**
-	 * This theme uses wp_nav_menu() in one location.
-	 */
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'ydnxc' ),
+		'top' => __( 'Top Menu', 'ydnxc' ),
+		'bottom' => __( 'Bottom Menu', 'ydnxc' ),
 	) );
 
 }
@@ -86,8 +87,8 @@ function ydnxc_widgets_init() {
 		'id' => 'home-sidebar-tabs',
 		'before_widget' => '<aside id="%1$s" class="tab widget %2$s">',
 		'after_widget' => "</aside>",
-		'before_title' => '<h1 class="widget-title">',
-		'after_title' => '</h1>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
   ) );	
   
   register_sidebar( array(
@@ -95,8 +96,8 @@ function ydnxc_widgets_init() {
 		'id' => 'content-sidebar-tabs',
 		'before_widget' => '<aside id="%1$s" class="tab widget %2$s">',
 		'after_widget' => "</aside>",
-		'before_title' => '<h1 class="widget-title">',
-		'after_title' => '</h1>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
 	) );
 
   register_sidebar( array(
@@ -104,8 +105,8 @@ function ydnxc_widgets_init() {
 		'id' => 'sidebar-advertisement',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => "</aside>",
-		'before_title' => '<h1 class="widget-title">',
-		'after_title' => '</h1>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
 	) );
 }
 add_action( 'widgets_init', 'ydnxc_widgets_init' );

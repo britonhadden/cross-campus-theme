@@ -13,11 +13,8 @@ get_header(); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php ydnxc_content_nav( 'nav-above' ); ?>
-
 				<?php get_template_part( 'content', 'single' ); ?>
 
-				<?php ydnxc_content_nav( 'nav-below' ); ?>
 
 				<?php
 					// If comments are open or we have at least one comment, load up the comment template
@@ -25,6 +22,7 @@ get_header(); ?>
 						comments_template( '', true );
 				?>
 
+				<?php ydnxc_content_nav( 'nav-below' ); ?>
 			<?php endwhile; // end of the loop. ?>
 
 			</div><!-- #content -->

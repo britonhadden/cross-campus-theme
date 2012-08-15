@@ -41,6 +41,25 @@ function ydnxc_content_nav( $nav_id ) {
 		<?php endif; ?>
 
 	<?php endif; ?>
+  <?php if ( $nav_id == "nav-below" ): //the bottom navigation lists the featured stories in addition to the next/previous links ?>
+    <div id="featured-posts">
+      <ul>
+      <?php
+        global $post;
+        $temp_post = $post;
+        $featured_posts = z_get_zone_query('cross-campus-featured-posts');
+        $featured_index = 0;
+        while ( $featured_posts->have_posts() && $featured_index < 4 ):
+          $featured_posts->the_post(); 
+        ?><li><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('featured-story-list'); ?></a><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li><?php
+        //make sure there are no extra spaces around the LI
+          $featured_posts++;
+        endwhile; 
+        $post = $temp_post;
+      ?>
+      </ul>
+    </div> 
+  <?php endif; ?>
 
 	</nav><!-- #<?php echo $nav_id; ?> -->
 	<?php

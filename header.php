@@ -47,7 +47,7 @@
 	<?php do_action( 'before' ); ?>
   <nav id="top" class="top-bottom">
     <div class="container clearfix">
-      <span class="pull-left"><a href="http://yaledailynews.com">yaledailynews.com</a></span>
+    <span class="pull-left"><?php wp_nav_menu( array('theme_location' => 'top') ); ?></span>
       <span class="pull-right"><a href="#">Login</a> | <a href="#">Logout</a></span>
     </div>
   </nav>
