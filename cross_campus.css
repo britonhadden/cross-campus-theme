@@ -5244,8 +5244,6 @@ body {
   background-color: #d2baa1;
 }
 
-/* the navs on the top and bottom of the page are mostly the same */
-
 .top-bottom {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
@@ -5280,4 +5278,73 @@ body {
   width: 710px;
   height: 70px;
   background: transparent url("http://localhost/wp-content/themes/ydnxc/img/cross_campus_logo.jpg") center 1px no-repeat;
+}
+
+#sidebar #tabbed,
+#sidebar .widget {
+  margin-bottom: 20px;
+}
+
+#sidebar > .widget_text {
+  text-align: center;
+}
+
+#sidebar #tabbed.js {
+  width: 230px;
+  margin-left: -5px;
+}
+
+#sidebar #tabbed.js .widget {
+  margin-bottom: 0;
+}
+
+#sidebar #tabbed.js .nav-tabs {
+  margin-bottom: 0;
+  border: none;
+}
+
+#sidebar #tabbed.js .nav-tabs > li > a {
+  color: #d2baa1;
+  border: 1px solid #a7845c;
+  border-bottom: none;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+#sidebar #tabbed.js .nav-tabs > li > a:hover {
+  color: #a7845c;
+  background-color: transparent;
+}
+
+#sidebar #tabbed.js .nav-tabs > .active > a,
+#sidebar #tabbed.js .nav-tabs > .active > a:hover {
+  color: #d2baa1;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ffffff;
+}
+
+#sidebar #tabbed.js .tab-pane {
+  padding: 10px;
+  color: #a7845c;
+  background-color: #ffffff;
+  border: 1px solid #a7845c;
+}
+
+#sidebar #tabbed.js .tab-pane a {
+  color: #d2baa1;
+}
+
+#sidebar #tabbed.js #blogroll ul,
+#sidebar #tabbed.js #twitter ul {
+  margin-left: 0;
+  list-style: none;
+}
+
+#sidebar #tabbed.js #twitter ul li {
+  margin-bottom: 10px;
+}
+
+#sidebar #tabbed.js #twitter ul li:last-child {
+  margin-bottom: 0;
 }

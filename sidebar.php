@@ -12,15 +12,16 @@
          <aside id="search" class="widget widget_search">
             <?php get_search_form(); ?>
           </aside>
-         
-        <div class="tab-content">
-         <?php
-          if ( is_single() ) {
-            dynamic_sidebar('content-sidebar-tabs');
-          } else {
-            dynamic_sidebar('home-sidebar-tabs');
-          }
-          ?>
+       <div id="tabbed">  
+          <div class="tab-content">
+           <?php
+            if ( is_single() ) {
+              dynamic_sidebar('content-sidebar-tabs');
+            } else {
+              dynamic_sidebar('home-sidebar-tabs');
+            }
+            ?>
+          </div>
         </div>
 
         <?php

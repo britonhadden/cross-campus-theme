@@ -1,7 +1,7 @@
 (function($) {
   
   function init() {
-   build_sidebar_tabs();
+    build_sidebar_tabs();
   };
 
 
@@ -11,6 +11,7 @@
      * markup as our tab body) and then enabling the tabbed interface */
     var $tabs = $('.tab');
     var $tabs_navigation;
+    var $tabbed = $('#tabbed').addClass('js'); //activate styles by marking JS on
     if ( $tabs.length == 0 ) {
       return;
     }
@@ -29,7 +30,7 @@
       }
       title_text = $tab_title.html();
       console.log(title_text);
-      tab_id = title_text.replace(' ','');
+      tab_id = title_text.replace(' ','').toLowerCase();
       $tab_title.remove();
 
       //generate the LI element for the nav 
@@ -41,6 +42,7 @@
       //set the ID on the tab to match the anchor & add the appropriate classes
       $tab.attr("id",tab_id).addClass('tab-pane');
       if (index == 0) {
+         $tab_li.addClass('active');
          $tab.addClass('active');
       }
 
@@ -51,7 +53,7 @@
       });
    } );
     
-   $("#sidebar .tab-content").before($tabs_navigation);
+   $tabbed.prepend($tabs_navigation);
     
   };
 
