@@ -135,6 +135,27 @@ function ydnxc_scripts() {
 add_action( 'wp_enqueue_scripts', 'ydnxc_scripts' );
 
 /**
+  *  * Register custom metadata fields in the admin interface
+  *   */
+
+function ydnxc_register_custom_metadata() {
+    if( function_exists( 'x_add_metadata_field' ) && function_exists( 'x_add_metadata_group' ) ) {
+          x_add_metadata_group( 'ydn_metadata', array('post'), array('label' => "YDN Metadata") );
+          x_add_metadata_field( 'ydn_homepage_excerpt', array( 'post' ), array( 'label' => "Homepage Excerpt (~ 5 words)",
+                                                                                 'group' => 'ydn_metadata' ) );
+          x_add_metadata_field( "ydn_legacy_password", array('user'), array( 'label' => "YDN Legacy Password Hash" ) );
+      }
+}
+
+add_action('admin_menu', 'ydnxc_register_custom_metadata');
+
+function ydn_excerpt_read_more($more) {
+         global $post;
+          return ' <a href="'. get_permalink($post->ID) . '">&raquo;</a>';
+}
+add_filter('excerpt_more', 'ydn_excerpt_read_more');
+
+/**
  * Implement the Custom Header feature
  */
 //require( get_template_directory() . '/inc/custom-header.php' );

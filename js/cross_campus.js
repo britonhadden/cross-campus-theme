@@ -1,9 +1,25 @@
 (function($) {
   
-  function init() {
+  function init_onready() {
     build_sidebar_tabs();
   };
 
+  function init_onload()  {
+    //wait for the images to load before adjusting columns,
+    //in case they change the height of primary
+    adjust_column_heights();
+  }; 
+
+
+  function adjust_column_heights() {
+    /* when the sidebar column is taller than the content area, the featured story panel floats awkwardly in the
+     * middle of the page. This function applies a class that triggers absolute positioning on the featured
+     * story footer */
+    var $secondary = $("#secondary"), $primary = $("#primary");
+    if ( $secondary.length == 1 && $primary.length == 1 && $secondary.height() > $primary.height() ) {
+      $("#nav-below").addClass("position-bottom");
+    }
+  }
 
   function build_sidebar_tabs() {
     /* ideally this would get rendered server side, but WP doesn't have a simple method for creating multiple render
@@ -29,7 +45,6 @@
         $tab_title = $tab_title.children().first();
       }
       title_text = $tab_title.html();
-      console.log(title_text);
       tab_id = title_text.replace(' ','').toLowerCase();
       $tab_title.remove();
 
@@ -57,5 +72,7 @@
     
   };
 
-  $(document).ready( init ); 
+  $(document).ready( init_onready ); 
+  $(window).load( init_onload );
+
 } (jQuery) );
