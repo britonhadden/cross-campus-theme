@@ -69,16 +69,10 @@ hr {
 
 .sticky {
 }
-.hentry {
-	margin: 0 0 1.5em;
-}
 .entry-meta {
 	clear: both;
 }
-.entry-content,
-.entry-summary {
-	margin: 1.5em 0 0;
-}
+
 .page-links {
 	clear: both;
 	margin: 0 0 1.5em;

@@ -88,32 +88,29 @@ function ydnxc_comment( $comment, $args, $depth ) {
 	?>
 	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
 		<article id="comment-<?php comment_ID(); ?>" class="comment">
-			<footer>
+			<header>
 				<div class="comment-author vcard">
 					<?php echo get_avatar( $comment, 40 ); ?>
-					<?php printf( __( '%s <span class="says">says:</span>', 'ydnxc' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
+					<?php printf( __( '%s:', 'ydnxc' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
 				</div><!-- .comment-author .vcard -->
 				<?php if ( $comment->comment_approved == '0' ) : ?>
 					<em><?php _e( 'Your comment is awaiting moderation.', 'ydnxc' ); ?></em>
 					<br />
 				<?php endif; ?>
-
-				<div class="comment-meta commentmetadata">
-					<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>"><time pubdate datetime="<?php comment_time( 'c' ); ?>">
-					<?php
-						/* translators: 1: date, 2: time */
-						printf( __( '%1$s at %2$s', 'ydnxc' ), get_comment_date(), get_comment_time() ); ?>
-					</time></a>
-					<?php edit_comment_link( __( '(Edit)', 'ydnxc' ), ' ' );
-					?>
-				</div><!-- .comment-meta .commentmetadata -->
-			</footer>
+			</header>
 
 			<div class="comment-content"><?php comment_text(); ?></div>
+      <footer class="clearfix">
+        <a class="pull-left" href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>"><time pubdate datetime="<?php comment_time( 'c' ); ?>">
+					<?php
+						/* translators: 1: date, 2: time */
+						printf( __( 'Posted on %1$s at %2$s', 'ydnxc' ), get_comment_date(), get_comment_time() ); ?>
+					</time></a>
 
-			<div class="reply">
-				<?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
-			</div><!-- .reply -->
+        <span class="reply pull-right">
+          <?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+        </span><!-- .reply -->
+      </footer>
 		</article><!-- #comment-## -->
 
 	<?php
@@ -167,6 +164,70 @@ function ydnxc_categorized_blog() {
 		return false;
 	}
 }
+
+// this function renders the header that tops off posts throughout XC
+if (!function_exists('ydnxc_post_header') ):
+function ydnxc_post_header() {
+  global $post;
+  $pieces = array();
+
+  $cats = get_the_category();
+  if(!empty($cats)) {
+    array_push($pieces, $cats[0]->name); //there should only be one category per post, which is used as the primary tag
+  }
+
+  array_push($pieces, get_the_time() );
+  array_push($pieces, get_the_date() );
+  array_push($pieces, 'By ' . coauthors_posts_links(null,null,null,null,false)); //the false makes it return the value instead of echoing it
+  
+  ?>
+  <div class="divider">
+    <div>
+      <?php echo implode($pieces,' | '); ?>
+    </div>
+  </div>
+  <?php
+}
+endif;
+
+/**
+ * Returns a div with the post's featured image and associated metadata (e.g. caption, authors..)
+ * meant to be used within the loop. uses global $post
+ */
+if (! function_exists( 'ydnxc_get_featured_image') ):
+function ydnxc_get_featured_image() {
+  global $post;
+  if(  has_post_thumbnail() ):
+    $featured_image_id = get_post_thumbnail_id( $post->ID );
+    $featured_image_obj = get_posts( array( 'numberposts' => 1,
+                                            'include' => $featured_image_id,
+                                            'post_type' => 'attachment',
+                                            'post_parent' => $post->ID ) );
+    if ( is_array($featured_image_obj) && !empty($featured_image_obj) ) {
+      $featured_image_obj = $featured_image_obj[0];
+    }
+
+    ?>
+    <div class="entry-featured-image">
+      <?php  the_post_thumbnail('entry-featured-image'); ?>
+      <?php if($featured_image_obj): ?>
+        <div class="image-meta">
+          <?php if( $featured_image_obj->post_excerpt): ?>
+            <span class="caption"> <?php echo esc_html( $featured_image_obj->post_excerpt ); ?> </span> 
+          <?php endif; ?>
+          <?php
+            $attribution_text = get_media_credit_html($featured_image_obj);
+            if(trim($attribution_text) != ''  ): ?>
+              <span class="attribution">Photo by <?php echo $attribution_text; ?>.</span>
+          <?php endif; ?>
+        </div>
+      <?php endif; //end featured_image_obj check ?>
+    </div>
+    <?php endif; //end has_post_thumbnail condition
+}
+endif; // end function_exists condition
+
+
 
 /**
  * Flush out the transients used in ydnxc_categorized_blog
