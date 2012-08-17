@@ -68,19 +68,20 @@ get_header(); ?>
 				</header>
 
 				<?php rewind_posts(); ?>
+        <div class="content-list">
+          <?php /* Start the Loop */ ?>
+          <?php while ( have_posts() ) : the_post(); ?>
 
-				<?php /* Start the Loop */ ?>
-				<?php while ( have_posts() ) : the_post(); ?>
+            <?php
+              /* Include the Post-Format-specific template for the content.
+               * If you want to overload this in a child theme then include a file
+               * called list-___.php (where ___ is the Post Format name) and that will be used instead.
+               */
+              get_template_part( 'list', get_post_format() );
+            ?>
 
-					<?php
-						/* Include the Post-Format-specific template for the content.
-						 * If you want to overload this in a child theme then include a file
-						 * called list-___.php (where ___ is the Post Format name) and that will be used instead.
-						 */
-						get_template_part( 'list', get_post_format() );
-					?>
-
-				<?php endwhile; ?>
+          <?php endwhile; ?>
+      </div>
 
 				<?php ydnxc_content_nav( 'nav-below' ); ?>
 

@@ -149,11 +149,11 @@ function ydnxc_register_custom_metadata() {
 
 add_action('admin_menu', 'ydnxc_register_custom_metadata');
 
-function ydn_excerpt_read_more($more) {
+function ydnxc_excerpt_read_more($more) {
          global $post;
           return ' <a href="'. get_permalink($post->ID) . '">&raquo;</a>';
 }
-add_filter('excerpt_more', 'ydn_excerpt_read_more');
+add_filter('excerpt_more', 'ydnxc_excerpt_read_more');
 
 /**
  * Implement the Custom Header feature

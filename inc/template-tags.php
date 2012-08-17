@@ -174,15 +174,22 @@ if (!function_exists('ydnxc_post_header') ):
 function ydnxc_post_header() {
   global $post;
   $pieces = array();
+  if ( is_attachment() ) {
+   //if it's an attachment show time | date | credit 
+    array_push($pieces, get_the_time());
+    array_push($pieces, get_the_date());
+    array_push($pieces, 'By ' . get_media_credit_html());
+  } else {
+    //if it's a regular post, show category | time | date | authors
+    $cats = get_the_category();
+    if(!empty($cats)) {
+      array_push($pieces, $cats[0]->name); //there should only be one category per post, which is used as the primary tag
+    }
 
-  $cats = get_the_category();
-  if(!empty($cats)) {
-    array_push($pieces, $cats[0]->name); //there should only be one category per post, which is used as the primary tag
+    array_push($pieces, get_the_time() );
+    array_push($pieces, get_the_date() );
+    array_push($pieces, 'By ' . coauthors_posts_links(null,null,null,null,false)); //the false makes it return the value instead of echoing it
   }
-
-  array_push($pieces, get_the_time() );
-  array_push($pieces, get_the_date() );
-  array_push($pieces, 'By ' . coauthors_posts_links(null,null,null,null,false)); //the false makes it return the value instead of echoing it
   
   ?>
   <div class="divider">
